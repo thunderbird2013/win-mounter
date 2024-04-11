@@ -238,16 +238,23 @@ int blkid::init()
 
 int blkid::check_blkid()
 {
+    QString command = "blkid";
+        QStringList arguments = {"--version"};
 
+        QProcess process;
+        process.setProgram(command);
+        process.setArguments(arguments);
 
-   QProcess blkidProcess;
-  // blkidProcess.start("blkid", QStringList);
+        // Redirect standard output and standard error to /dev/null
+        process.setStandardOutputFile("/dev/null");
+        process.setStandardErrorFile("/dev/null");
 
+        // Start the process
+        process.start();
+        process.waitForFinished();
 
-
-
-
-   return 1;
+        // Return the exit code of the process
+        return process.exitCode();
 }
 
 
